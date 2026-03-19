@@ -169,6 +169,7 @@ export type ChannelOutboundAdapter = {
     allowFrom?: string[];
     accountId?: string | null;
     mode?: ChannelOutboundTargetMode;
+    originatingTo?: string;
   }) => { ok: true; to: string } | { ok: false; error: Error };
   sendPayload?: (ctx: ChannelOutboundPayloadContext) => Promise<OutboundDeliveryResult>;
   sendFormattedText?: (ctx: ChannelOutboundFormattedContext) => Promise<OutboundDeliveryResult[]>;

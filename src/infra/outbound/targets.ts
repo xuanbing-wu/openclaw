@@ -188,6 +188,7 @@ export function resolveOutboundTarget(params: {
   cfg?: OpenClawConfig;
   accountId?: string | null;
   mode?: ChannelOutboundTargetMode;
+  originatingTo?: string;
 }): OutboundTargetResolution {
   if (params.channel === INTERNAL_MESSAGE_CHANNEL) {
     return {
@@ -237,6 +238,7 @@ export function resolveOutboundTarget(params: {
       allowFrom,
       accountId: params.accountId ?? undefined,
       mode: params.mode ?? "explicit",
+      originatingTo: params.originatingTo,
     });
   }
 
