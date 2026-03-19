@@ -129,6 +129,7 @@ export async function deliverAgentCommandResult(params: {
           plan: effectiveDeliveryPlan,
           targetMode,
           validateExplicitTarget: true,
+          originatingTo: turnSourceTo,
         })
       : {
           resolvedTarget: null,
