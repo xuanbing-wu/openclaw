@@ -1291,7 +1291,12 @@ export async function monitorMattermostProvider(opts: MonitorMattermostOpts = {}
       });
     }
 
-    const to = kind === "direct" ? `user:${senderId}` : `channel:${channelId}`;
+    // 如果有 threadRootId，应该回复到话题所在的频道，而不是发件人
+    const to = threadRootId
+      ? `channel:${channelId}`
+      : kind === "direct"
+        ? `user:${senderId}`
+        : `channel:${channelId}`;
     const mediaPayload = buildAgentMediaPayload(mediaList);
     const commandBody = rawText.trim();
     const inboundHistory =

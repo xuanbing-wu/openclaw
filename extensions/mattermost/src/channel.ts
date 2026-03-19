@@ -378,9 +378,10 @@ export const mattermostPlugin: ChannelPlugin<ResolvedMattermostAccount> = {
     chunker: (text, limit) => getMattermostRuntime().channel.text.chunkMarkdownText(text, limit),
     chunkerMode: "markdown",
     textChunkLimit: 4000,
-    resolveTarget: ({ to }) => {
-      const trimmed = to?.trim();
-      if (!trimmed) {
+    resolveTarget: ({ to, originatingTo }) => {
+      // If originatingTo is set (from thread reply context), use it instead of 'to'
+      const effectiveTo = originatingTo?.trim() || to?.trim();
+      if (!effectiveTo) {
         return {
           ok: false,
           error: new Error(
@@ -388,7 +389,7 @@ export const mattermostPlugin: ChannelPlugin<ResolvedMattermostAccount> = {
           ),
         };
       }
-      return { ok: true, to: trimmed };
+      return { ok: true, to: effectiveTo };
     },
     ...createAttachedChannelResultAdapter({
       channel: "mattermost",

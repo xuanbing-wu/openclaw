@@ -141,6 +141,7 @@ export function resolveAgentOutboundTarget(params: {
   plan: AgentDeliveryPlan;
   targetMode?: ChannelOutboundTargetMode;
   validateExplicitTarget?: boolean;
+  originatingTo?: string;
 }): {
   resolvedTarget: OutboundTargetResolution | null;
   resolvedTo?: string;
@@ -170,6 +171,7 @@ export function resolveAgentOutboundTarget(params: {
     cfg: params.cfg,
     accountId: params.plan.resolvedAccountId,
     mode: targetMode,
+    originatingTo: params.originatingTo,
   });
   return {
     resolvedTarget,
