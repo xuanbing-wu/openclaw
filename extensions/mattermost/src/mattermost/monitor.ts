@@ -1291,7 +1291,7 @@ export async function monitorMattermostProvider(opts: MonitorMattermostOpts = {}
       });
     }
 
-    // 如果有 threadRootId，应该回复到话题所在的频道，而不是发件人
+    // If threadRootId exists, reply to the channel where the thread lives, not to the sender
     const to = threadRootId
       ? `channel:${channelId}`
       : kind === "direct"
