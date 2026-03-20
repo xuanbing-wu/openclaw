@@ -415,7 +415,12 @@ export async function monitorMattermostProvider(opts: MonitorMattermostOpts = {}
           replyToMode,
           threadRootId: opts.post.root_id,
         });
-        const to = kind === "direct" ? `user:${opts.userId}` : `channel:${opts.channelId}`;
+        const threadRootId = opts.post.root_id?.trim() || undefined;
+        const to = threadRootId
+          ? `channel:${opts.channelId}`
+          : kind === "direct"
+            ? `user:${opts.userId}`
+            : `channel:${opts.channelId}`;
         const bodyText = `[Button click: user @${opts.userName} selected "${opts.actionName}"]`;
         const ctxPayload = core.channel.reply.finalizeInboundContext({
           Body: bodyText,
